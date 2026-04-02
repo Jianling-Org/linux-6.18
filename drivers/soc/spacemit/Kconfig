@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config SPACEMIT_HMP
+	bool "Spacemit HMP support"
+	depends on SMP && SOC_SPACEMIT
+	help
+	  Say y here to enable the HMP feature support.
+	  This feature categorizes the CPU cores within the
+	  SOC into two distinct types, each running different
+	  types of threads.
+
+config SPACEMIT_PM_DOMAINS
+	bool "Spacemit generic power domain"
+	depends on PM && MAILBOX
+	select PM_GENERIC_DOMAINS
+	help
+	  Say y here to enable power domain support.
+	  In order to meet high performance and low power requirements, a power
+	  management unit is designed or saving power.
+
+config CONFIG_SPACEMIT_DDR_QOS
+	bool "Spacemit ddr qos config"
+	depends on SOC_SPACEMIT_K3
+	help
+	  Say y here to enable ddr qos config function.
+
+config SPACEMIT_REBOOT_CONTROL
+	bool "Spacemit k3 reboot handler"
+	depends on SOC_SPACEMIT_K3
+	help
+	  Say y here to support go to uboot fastboot when reset.
+
+config SPACEMIT_SUSPEND_AFFINITY
+	bool "Spacemit k3 handle irq affinity when standby"
+	depends on SOC_SPACEMIT_K3 && PM_SLEEP
+	help
+	  Say y here to handle irq affinity in resume process to migrate
+	  back to cpu before suspend.
+
+source "drivers/soc/spacemit/v2d/Kconfig"
